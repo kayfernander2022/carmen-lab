@@ -70,9 +70,25 @@ SELECT * FROM city WHERE countrycode = 'SMR' AND name != 'San Marino';
 
 -- Clue #5: Oh no, she pulled a switch – there are two cities with very similar names, but in totally different parts of the globe! She's headed to South America as we speak; go find a city whose name is like the one we were headed to, but doesn't end the same. Find out the city, and do another search for what country it's in. Hurry!
 
+SELECT * FROM city WHERE name LIKE Serra%;
+--id  |    name    | countrycode |     district      | population 
+------+------------+-------------+-------------------+------------
+--265 | Serra      | BRA         | Espï¿½rito Santo  |     302666
+--3170 | Serravalle | SMR         | Serravalle/Dogano |       4802
+SELECT country.code, country.name, country.region, country.capital FROM country WHERE code = 'BRA';
+--code |  name  |    region     
+------+--------+---------------
+--BRA  | Brazil | South America
+
 
 
 -- Clue #6: We're close! Our South American agent says she just got a taxi at the airport, and is headed towards the capital! Look up the country's capital, and get there pronto! Send us the name of where you're headed and we'll follow right behind you!
+
+SELECT city.* FROM city INNER JOIN country ON city.id = country.capital WHERE code = 'BRA';
+--id  |    name    | countrycode |     district     | population 
+-----+------------+-------------+------------------+------------
+--211 | Brasï¿½lia | BRA         | Distrito Federal |    1969868
+
 
 
 
@@ -90,6 +106,10 @@ SELECT * FROM city WHERE countrycode = 'SMR' AND name != 'San Marino';
 
 -- We're counting on you, gumshoe. Find out where she's headed, send us the info, and we'll be sure to meet her at the gates with bells on.
 
+SELECT city.name FROM city WHERE population = 91085-1;
+--    name     
+--------------
+--Santa Monica
 
 
--- She's in ____________________________!
+-- She's in __Santa Monica__!
